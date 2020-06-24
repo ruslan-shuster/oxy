@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/vulcand/predicate"
+	"github.com//vulcand/predicate"
 )
 
 // IsValidExpression check if it's a valid expression
