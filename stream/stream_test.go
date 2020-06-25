@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	log "github.com/sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/vulcand/oxy/forward"
-	"github.com/vulcand/oxy/testutils"
+	"github.com/ruslan-shuster/oxy/forward"
+	"github.com/ruslan-shuster/oxy/testutils"
 )
 
 type noOpNextHTTPHandler struct{}

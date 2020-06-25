@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	log "github.com/sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
-	"github.com/vulcand/oxy/testutils"
+	"github.com/ruslan-shuster/oxy/testutils"
 )
 
 func TestRampUp(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strconv"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/vulcand/oxy/utils"
+	log "github.com/Sirupsen/logrus"
+	"github.com/ruslan-shuster/oxy/utils"
 )
 
 // Response response model

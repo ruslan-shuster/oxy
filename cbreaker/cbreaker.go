@@ -32,9 +32,9 @@ import (
 	"time"
 
 	"github.com/mailgun/timetools"
-	log "github.com/sirupsen/logrus"
-	"github.com/vulcand/oxy/memmetrics"
-	"github.com/vulcand/oxy/utils"
+	log "github.com/Sirupsen/logrus"
+	"github.com/ruslan-shuster/oxy/memmetrics"
+	"github.com/ruslan-shuster/oxy/utils"
 )
 
 // CircuitBreaker is http.Handler that implements circuit breaker pattern

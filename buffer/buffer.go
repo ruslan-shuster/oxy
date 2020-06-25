@@ -45,8 +45,8 @@ import (
 	"reflect"
 
 	"github.com/mailgun/multibuf"
-	log "github.com/sirupsen/logrus"
-	"github.com/vulcand/oxy/utils"
+	log "github.com/Sirupsen/logrus"
+	"github.com/ruslan-shuster/oxy/utils"
 )
 
 const (

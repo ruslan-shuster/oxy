@@ -34,8 +34,8 @@ package stream
 import (
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/vulcand/oxy/utils"
+	log "github.com/Sirupsen/logrus"
+	"github.com/ruslan-shuster/oxy/utils"
 )
 
 const (

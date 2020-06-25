@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"time"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/vulcand/oxy/utils"
+	log "github.com/Sirupsen/logrus"
+	"github.com/ruslan-shuster/oxy/utils"
 )
 
 // Option is a functional option setter for Tracer
