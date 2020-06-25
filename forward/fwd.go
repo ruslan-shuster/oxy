@@ -19,8 +19,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gorilla/websocket"
 	log "github.com/Sirupsen/logrus"
+	"github.com/gorilla/websocket"
 	"github.com/ruslan-shuster/oxy/utils"
 )
 
@@ -90,6 +90,13 @@ func ErrorHandler(h utils.ErrorHandler) optSetter {
 func BufferPool(pool httputil.BufferPool) optSetter {
 	return func(f *Forwarder) error {
 		f.bufferPool = pool
+		return nil
+	}
+}
+
+func SkipProxy(skipProxy bool) optSetter {
+	return func(f *Forwarder) error {
+		f.httpForwarder.skipProxy = skipProxy
 		return nil
 	}
 }
@@ -192,6 +199,7 @@ type httpForwarder struct {
 	roundTripper   http.RoundTripper
 	rewriter       ReqRewriter
 	passHost       bool
+	skipProxy      bool
 	flushInterval  time.Duration
 	modifyResponse func(*http.Response) error
 
@@ -201,6 +209,7 @@ type httpForwarder struct {
 
 	bufferPool                    httputil.BufferPool
 	websocketConnectionClosedHook func(req *http.Request, conn net.Conn)
+	wsDialer                      *websocket.Dialer
 }
 
 const defaultFlushInterval = time.Duration(100) * time.Millisecond
@@ -259,6 +268,14 @@ func New(setters ...optSetter) (*Forwarder, error) {
 		errorHandler: f.errHandler,
 	}
 
+	if f.skipProxy {
+		f.wsDialer = &websocket.Dialer{
+			Proxy:            nil,
+			HandshakeTimeout: websocket.DefaultDialer.HandshakeTimeout,
+		}
+	} else {
+		f.wsDialer = websocket.DefaultDialer
+	}
 	f.postConfig()
 
 	return f, nil
@@ -337,8 +354,7 @@ func (f *httpForwarder) serveWebSocket(w http.ResponseWriter, req *http.Request,
 
 	outReq := f.copyWebSocketRequest(req)
 
-	dialer := websocket.DefaultDialer
-
+	dialer := f.wsDialer
 	if outReq.URL.Scheme == "wss" && f.tlsClientConfig != nil {
 		dialer.TLSClientConfig = f.tlsClientConfig.Clone()
 		// WebSocket is only in http/1.1
